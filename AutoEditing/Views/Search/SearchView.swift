@@ -10,11 +10,14 @@ import SnapKit
 
 protocol SearchViewDelegate: AnyObject {
     func onSearchEditingEnd(_ query: String)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
 }
 
 class SearchView: UIView {
     weak var delegate: SearchViewDelegate?
     let searchBar = UISearchBar()
+    var collection: UICollectionView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,12 +51,12 @@ class SearchView: UIView {
             
         collectionLayout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: collectionLayout)
-        collection.delegate = self
-        collection.dataSource = self
-        collection.register(SearchResultsCollectionCell.self, forCellWithReuseIdentifier: "SearchResultsCollectionCell")
-        collection.backgroundColor = .clear
-        addSubview(collection)
+        collection = UICollectionView(frame: .zero, collectionViewLayout: collectionLayout)
+        collection!.delegate = self
+        collection!.dataSource = self
+        collection!.register(SearchResultsCollectionCell.self, forCellWithReuseIdentifier: "SearchResultsCollectionCell")
+        collection!.backgroundColor = .clear
+        addSubview(collection!)
         
         let button = UIButton()
         button.setTitle("Continue", for: .normal)
@@ -64,7 +67,7 @@ class SearchView: UIView {
             make.top.leading.trailing.equalTo(safeAreaLayoutGuide).inset(8)
         }
         
-        collection.snp.makeConstraints { make in
+        collection!.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(8)
             make.leading.trailing.equalTo(safeAreaLayoutGuide).inset(16)
             make.bottom.equalToSuperview()
@@ -99,12 +102,11 @@ extension SearchView: UICollectionViewDelegate {
 
 extension SearchView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9
+        return delegate?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchResultsCollectionCell", for: indexPath) as! SearchResultsCollectionCell
-        return cell
+        return delegate?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
     }
     
 }
