@@ -21,6 +21,7 @@ class SearchResultsCollectionCell: UICollectionViewCell {
     
     private func setup() {
         backgroundColor = .lightGray
+        translatesAutoresizingMaskIntoConstraints = false
         
         self.snp.makeConstraints { make in
             make.width.equalTo(self.snp.height)

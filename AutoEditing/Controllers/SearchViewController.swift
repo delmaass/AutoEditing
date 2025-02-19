@@ -9,6 +9,7 @@ import UIKit
 
 class SearchViewController: UIViewController {
     private let viewInstance = SearchView()
+    private let dataSource = PixabayDataSource()
     
     override func loadView() {
         view = viewInstance
@@ -16,6 +17,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dataSource.fetchImages()
     }
 }
 
