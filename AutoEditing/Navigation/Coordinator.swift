@@ -7,6 +7,14 @@
 
 import UIKit
 
+protocol CoordinatorDelegate: AnyObject {
+    var coordinator: Coordinator? { get set }
+}
+
+enum Screen {
+    case search, carousel
+}
+
 class Coordinator {
     var navigationController: UINavigationController
 
@@ -15,7 +23,20 @@ class Coordinator {
     }
 
     func start() {
-        let viewController = SearchViewController()
+        navigate(to: .search)
+    }
+    
+    func navigate(to screen: Screen) {
+        let viewController: UIViewController
+        
+        switch screen {
+            case .search:
+                viewController = SearchViewController()
+            case .carousel:
+                viewController = CarouselViewController()
+        }
+        
+        (viewController as? CoordinatorDelegate)?.coordinator = self
         navigationController.pushViewController(viewController, animated: true)
     }
 }

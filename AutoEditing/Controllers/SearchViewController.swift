@@ -7,12 +7,13 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, CoordinatorDelegate {
     private let viewInstance = SearchView()
     private let dataSource: ImageDataSource = PixabayDataSource()
-    
     private var images: [Image]?
     private var selectedImages: [Image] = []
+    
+    weak var coordinator: Coordinator?
     
     override func loadView() {
         view = viewInstance
@@ -81,5 +82,9 @@ extension SearchViewController: SearchViewDelegate {
             self.images = images
             self.viewInstance.reloadCollectionData()
         }
+    }
+    
+    func onContinue() {
+        coordinator?.navigate(to: .carousel)
     }
 }

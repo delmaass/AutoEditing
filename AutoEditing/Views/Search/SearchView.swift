@@ -13,6 +13,7 @@ protocol SearchViewDelegate: AnyObject {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     func onToggleSelected(_ cellIndexPath: IndexPath, selected: Bool)
+    func onContinue()
 }
 
 class SearchView: UIView {
@@ -66,6 +67,7 @@ class SearchView: UIView {
         button.setTitleColor(.blue, for: .normal)
         button.setTitleColor(.blue.withAlphaComponent(0.4), for: .disabled)
         button.isUserInteractionEnabled = true
+        button.addTarget(self, action: #selector(onButtonTouchUpInside), for: .touchUpInside)
         addSubview(button)
         
         searchBar.snp.makeConstraints { make in
@@ -98,6 +100,10 @@ class SearchView: UIView {
         }
         
         delegate?.onSearchEditingEnd(query)
+    }
+    
+    @objc private func onButtonTouchUpInside() {
+        delegate?.onContinue()
     }
     
     public func updateButton(count: Int) {
