@@ -17,6 +17,7 @@ enum NetworkError: Error {
 class Networker {
     static let shared = Networker()
     private let session: URLSession
+    private var cachedDownloads: [String: Data] = [:]
     
     init() {
         let config = URLSessionConfiguration.default
@@ -31,33 +32,25 @@ class Networker {
             
             if let error = error {
                 print("Error: \(error)")
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
+                completion(nil, error)
                 return
             }
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("not the right response")
-                DispatchQueue.main.async {
-                    completion(nil, NetworkError.badResponse)
-                }
+                completion(nil, NetworkError.badResponse)
                 return
             }
             
             guard (200...299).contains(httpResponse.statusCode) else {
                 print("not an ok status code: \(httpResponse.statusCode)")
-                DispatchQueue.main.async {
-                    completion(nil, NetworkError.badStatusCode(httpResponse.statusCode))
-                }
+                completion(nil, NetworkError.badStatusCode(httpResponse.statusCode))
                 return
             }
             
             guard let data = data else {
                 print("bad data")
-                DispatchQueue.main.async {
-                    completion(nil, NetworkError.badData)
-                }
+                completion(nil, NetworkError.badData)
                 return
             }
             
@@ -68,44 +61,43 @@ class Networker {
     }
     
     func download(_ url: URL, completion: @escaping (Data?, Error?) -> (Void)) {
+        if let cachedDownload = cachedDownloads[url.absoluteString] {
+            print("Using cached download: \(url.absoluteString)")
+            completion(cachedDownload, nil)
+            return
+        }
+        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
         let task = session.downloadTask(with: request) { localUrl, response, error in
             if let error = error {
                 print("Error: \(error)")
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
+                completion(nil, error)
                 return
             }
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("not the right response")
-                DispatchQueue.main.async {
-                    completion(nil, NetworkError.badResponse)
-                }
+                completion(nil, NetworkError.badResponse)
                 return
             }
             
             guard (200...299).contains(httpResponse.statusCode) else {
                 print("not an ok status code: \(httpResponse.statusCode)")
-                DispatchQueue.main.async {
-                    completion(nil, NetworkError.badStatusCode(httpResponse.statusCode))
-                }
+                completion(nil, NetworkError.badStatusCode(httpResponse.statusCode))
                 return
             }
             
             guard let localUrl = localUrl else {
                 print("bad local url")
-                DispatchQueue.main.async {
-                    completion(nil, NetworkError.badLocalUrl)
-                }
+                completion(nil, NetworkError.badLocalUrl)
                 return
             }
             
             do {
                 let data = try Data(contentsOf: localUrl)
+                self.cachedDownloads[url.absoluteString] = data
                 completion(data, nil)
             } catch {
                 completion(nil, error)

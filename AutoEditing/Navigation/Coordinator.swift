@@ -23,20 +23,15 @@ class Coordinator {
     }
 
     func start() {
-        navigate(to: .search)
+        let viewController = SearchViewController()
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: true)
     }
     
-    func navigate(to screen: Screen) {
-        let viewController: UIViewController
-        
-        switch screen {
-            case .search:
-                viewController = SearchViewController()
-            case .carousel:
-                viewController = CarouselViewController()
-        }
-        
-        (viewController as? CoordinatorDelegate)?.coordinator = self
+    func navigateToCarousel(images: [Image]) {
+        let viewController = CarouselViewController()
+        viewController.images = images
+        viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: true)
     }
 }

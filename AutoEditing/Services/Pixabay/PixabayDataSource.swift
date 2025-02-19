@@ -27,6 +27,7 @@ class PixabayDataSource: ImageDataSource {
             }
             
             guard let data = data else {
+                completion(nil, nil)
                 return
             }
             

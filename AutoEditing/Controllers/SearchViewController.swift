@@ -85,6 +85,6 @@ extension SearchViewController: SearchViewDelegate {
     }
     
     func onContinue() {
-        coordinator?.navigate(to: .carousel)
+        coordinator?.navigateToCarousel(images: selectedImages)
     }
 }
