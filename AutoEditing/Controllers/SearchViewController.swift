@@ -42,6 +42,8 @@ extension SearchViewController: SearchViewDelegate {
             selectedImages.remove(at: selectedImagesIndex!)
             print("Removing \(selectedImage.id)")
         }
+        
+        viewInstance.updateButton(count: selectedImages.count)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -77,7 +79,7 @@ extension SearchViewController: SearchViewDelegate {
             }
             
             self.images = images
-            self.viewInstance.collection?.reloadData()
+            self.viewInstance.reloadCollectionData()
         }
     }
 }

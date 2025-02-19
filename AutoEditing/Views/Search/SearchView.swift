@@ -17,8 +17,9 @@ protocol SearchViewDelegate: AnyObject {
 
 class SearchView: UIView {
     weak var delegate: SearchViewDelegate?
-    let searchBar = UISearchBar()
-    var collection: UICollectionView?
+    private let searchBar = UISearchBar()
+    private var collection: UICollectionView?
+    private let button = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,9 +60,12 @@ class SearchView: UIView {
         collection!.backgroundColor = .clear
         addSubview(collection!)
         
-        let button = UIButton()
-        button.setTitle("Continue", for: .normal)
+        button.isEnabled = false
+        button.backgroundColor = .white
+        button.setTitle("Continue (0/2)", for: .normal)
         button.setTitleColor(.blue, for: .normal)
+        button.setTitleColor(.blue.withAlphaComponent(0.4), for: .disabled)
+        button.isUserInteractionEnabled = true
         addSubview(button)
         
         searchBar.snp.makeConstraints { make in
@@ -94,6 +98,15 @@ class SearchView: UIView {
         }
         
         delegate?.onSearchEditingEnd(query)
+    }
+    
+    public func updateButton(count: Int) {
+        button.setTitle("Continue (\(count)/2)", for: .normal)
+        button.isEnabled = count >= 2
+    }
+    
+    public func reloadCollectionData() {
+        collection?.reloadData()
     }
 }
 
