@@ -14,19 +14,12 @@
 			remoteGlobalIDString = B8C2F1502D66078A00119F23;
 			remoteInfo = AutoEditing;
 		};
-		B8C2F1722D66078B00119F23 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B8C2F1492D66078A00119F23 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B8C2F1502D66078A00119F23;
-			remoteInfo = AutoEditing;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B8C2F1512D66078A00119F23 /* AutoEditing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoEditing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8C2F1672D66078B00119F23 /* AutoEditingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AutoEditingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B8C2F1712D66078B00119F23 /* AutoEditingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AutoEditingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8FC204F2D6607C400093D60 /* AutoEditing.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = AutoEditing.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -53,11 +46,6 @@
 			path = AutoEditingTests;
 			sourceTree = "<group>";
 		};
-		B8C2F1742D66078B00119F23 /* AutoEditingUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = AutoEditingUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,22 +63,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B8C2F16E2D66078B00119F23 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		B8C2F1482D66078A00119F23 = {
 			isa = PBXGroup;
 			children = (
+				B8FC204F2D6607C400093D60 /* AutoEditing.xctestplan */,
 				B8C2F1532D66078A00119F23 /* AutoEditing */,
 				B8C2F16A2D66078B00119F23 /* AutoEditingTests */,
-				B8C2F1742D66078B00119F23 /* AutoEditingUITests */,
 				B8C2F1522D66078A00119F23 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,7 +81,6 @@
 			children = (
 				B8C2F1512D66078A00119F23 /* AutoEditing.app */,
 				B8C2F1672D66078B00119F23 /* AutoEditingTests.xctest */,
-				B8C2F1712D66078B00119F23 /* AutoEditingUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,29 +133,6 @@
 			productReference = B8C2F1672D66078B00119F23 /* AutoEditingTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B8C2F1702D66078B00119F23 /* AutoEditingUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B8C2F1822D66078B00119F23 /* Build configuration list for PBXNativeTarget "AutoEditingUITests" */;
-			buildPhases = (
-				B8C2F16D2D66078B00119F23 /* Sources */,
-				B8C2F16E2D66078B00119F23 /* Frameworks */,
-				B8C2F16F2D66078B00119F23 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B8C2F1732D66078B00119F23 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				B8C2F1742D66078B00119F23 /* AutoEditingUITests */,
-			);
-			name = AutoEditingUITests;
-			packageProductDependencies = (
-			);
-			productName = AutoEditingUITests;
-			productReference = B8C2F1712D66078B00119F23 /* AutoEditingUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -190,10 +147,6 @@
 						CreatedOnToolsVersion = 16.2;
 					};
 					B8C2F1662D66078B00119F23 = {
-						CreatedOnToolsVersion = 16.2;
-						TestTargetID = B8C2F1502D66078A00119F23;
-					};
-					B8C2F1702D66078B00119F23 = {
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = B8C2F1502D66078A00119F23;
 					};
@@ -215,7 +168,6 @@
 			targets = (
 				B8C2F1502D66078A00119F23 /* AutoEditing */,
 				B8C2F1662D66078B00119F23 /* AutoEditingTests */,
-				B8C2F1702D66078B00119F23 /* AutoEditingUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -229,13 +181,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B8C2F1652D66078B00119F23 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B8C2F16F2D66078B00119F23 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -259,13 +204,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B8C2F16D2D66078B00119F23 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -273,11 +211,6 @@
 			isa = PBXTargetDependency;
 			target = B8C2F1502D66078A00119F23 /* AutoEditing */;
 			targetProxy = B8C2F1682D66078B00119F23 /* PBXContainerItemProxy */;
-		};
-		B8C2F1732D66078B00119F23 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B8C2F1502D66078A00119F23 /* AutoEditing */;
-			targetProxy = B8C2F1722D66078B00119F23 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -294,9 +227,9 @@
 				INFOPLIST_FILE = AutoEditing/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -322,9 +255,9 @@
 				INFOPLIST_FILE = AutoEditing/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -495,40 +428,6 @@
 			};
 			name = Release;
 		};
-		B8C2F1832D66078B00119F23 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6799DWB737;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.delmaass.AutoEditingUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = AutoEditing;
-			};
-			name = Debug;
-		};
-		B8C2F1842D66078B00119F23 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6799DWB737;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.delmaass.AutoEditingUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = AutoEditing;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -555,15 +454,6 @@
 			buildConfigurations = (
 				B8C2F1802D66078B00119F23 /* Debug */,
 				B8C2F1812D66078B00119F23 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B8C2F1822D66078B00119F23 /* Build configuration list for PBXNativeTarget "AutoEditingUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B8C2F1832D66078B00119F23 /* Debug */,
-				B8C2F1842D66078B00119F23 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

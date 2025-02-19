@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "0E105E94-E204-4F30-A2D7-F08881C6D9FB",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:AutoEditing.xcodeproj",
+      "identifier" : "B8C2F1502D66078A00119F23",
+      "name" : "AutoEditing"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:AutoEditing.xcodeproj",
+        "identifier" : "B8C2F1662D66078B00119F23",
+        "name" : "AutoEditingTests"
+      }
+    }
+  ],
+  "version" : 1
+}
