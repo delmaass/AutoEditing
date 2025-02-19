@@ -15,12 +15,15 @@ class PixabayDataSource: ImageDataSource {
         session = URLSession(configuration: config)
     }
     
-    func fetchImages() {
+    func fetchImages(_ query: String) {
         guard let apiKey = ProcessInfo.processInfo.environment["PIXABAY_API_KEY"] else {
             fatalError("PIXABAY_API_KEY environment variable needs to be set")
         }
         
-        let url = URL(string: "https://pixabay.com/api/?image_type=photo&q=yellow+flowers&key=" + apiKey)!
+        let q = query.replacingOccurrences(of: " ", with: "+")
+        print(q)
+        
+        let url = URL(string: "https://pixabay.com/api/?image_type=photo&q=\(q)&key=\(apiKey)")!
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

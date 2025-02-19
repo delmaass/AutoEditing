@@ -8,7 +8,14 @@
 import UIKit
 import SnapKit
 
+protocol SearchViewDelegate: AnyObject {
+    func onSearchEditingEnd(_ query: String)
+}
+
 class SearchView: UIView {
+    weak var delegate: SearchViewDelegate?
+    let searchBar = UISearchBar()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -22,10 +29,11 @@ class SearchView: UIView {
     private func setup() {
         backgroundColor = .white
         
-        let searchBar = UISearchBar()
         searchBar.searchBarStyle = .minimal
         searchBar.searchTextField.backgroundColor = .lightGray
         searchBar.placeholder = "Search for images..."
+        searchBar.searchTextField.addTarget(self, action: #selector(onSearchEditingEnd), for: .editingDidEnd)
+        searchBar.searchTextField.addTarget(self, action: #selector(dismissKeyboard), for: .primaryActionTriggered)
         addSubview(searchBar)
         
         let collectionLayout = UICollectionViewFlowLayout()
@@ -66,6 +74,22 @@ class SearchView: UIView {
             make.bottom.equalTo(safeAreaLayoutGuide)
             make.centerX.equalToSuperview()
         }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func dismissKeyboard() {
+        endEditing(true)
+    }
+    
+    @objc private func onSearchEditingEnd() {
+        guard let query = searchBar.text else {
+            return
+        }
+        
+        delegate?.onSearchEditingEnd(query)
     }
 }
 

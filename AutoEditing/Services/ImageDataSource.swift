@@ -6,5 +6,5 @@
 //
 
 protocol ImageDataSource {
-    func fetchImages()
+    func fetchImages(_ query: String)
 }
