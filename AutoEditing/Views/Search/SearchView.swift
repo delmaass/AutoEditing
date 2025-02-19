@@ -33,12 +33,24 @@ class SearchView: UIView {
         collectionLayout.minimumInteritemSpacing = 8
         collectionLayout.minimumLineSpacing = 8
         
+        let totalWidth = UIScreen.main.bounds.width
+        let paddingSpace = collectionLayout.sectionInset.left + collectionLayout.sectionInset.right + collectionLayout.minimumInteritemSpacing
+        let availableWidth = totalWidth - paddingSpace - 32
+        let itemWidth = availableWidth / 2
+            
+        collectionLayout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        
         let collection = UICollectionView(frame: .zero, collectionViewLayout: collectionLayout)
         collection.delegate = self
         collection.dataSource = self
         collection.register(SearchResultsCollectionCell.self, forCellWithReuseIdentifier: "SearchResultsCollectionCell")
         collection.backgroundColor = .clear
         addSubview(collection)
+        
+        let button = UIButton()
+        button.setTitle("Continue", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        addSubview(button)
         
         searchBar.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(safeAreaLayoutGuide).inset(8)
@@ -48,6 +60,11 @@ class SearchView: UIView {
             make.top.equalTo(searchBar.snp.bottom).offset(8)
             make.leading.trailing.equalTo(safeAreaLayoutGuide).inset(16)
             make.bottom.equalToSuperview()
+        }
+        
+        button.snp.makeConstraints { make in
+            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.centerX.equalToSuperview()
         }
     }
 }

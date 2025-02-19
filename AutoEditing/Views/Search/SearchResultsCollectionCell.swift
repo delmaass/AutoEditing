@@ -24,7 +24,7 @@ class SearchResultsCollectionCell: UICollectionViewCell {
         
         self.snp.makeConstraints { make in
             make.width.equalTo(self.snp.height)
-            make.width.greaterThanOrEqualTo(100)
+            make.width.greaterThanOrEqualTo(200)
         }
     }
 }
