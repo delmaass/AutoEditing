@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B8FC209E2D660A2E00093D60 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B8FC209D2D660A2E00093D60 /* SnapKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		B8C2F1682D66078B00119F23 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -53,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8FC209E2D660A2E00093D60 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +110,7 @@
 			);
 			name = AutoEditing;
 			packageProductDependencies = (
+				B8FC209D2D660A2E00093D60 /* SnapKit */,
 			);
 			productName = AutoEditing;
 			productReference = B8C2F1512D66078A00119F23 /* AutoEditing.app */;
@@ -161,6 +167,9 @@
 			);
 			mainGroup = B8C2F1482D66078A00119F23;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B8FC209C2D660A2E00093D60 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B8C2F1522D66078A00119F23 /* Products */;
 			projectDirPath = "";
@@ -459,6 +468,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B8FC209C2D660A2E00093D60 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B8FC209D2D660A2E00093D60 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8FC209C2D660A2E00093D60 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B8C2F1492D66078A00119F23 /* Project object */;
 }
