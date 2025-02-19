@@ -6,5 +6,5 @@
 //
 
 protocol ImageDataSource {
-    func fetchImages(_ query: String)
+    func fetchImages(_ query: String, completion: @escaping ([Image]?, Error?) -> (Void))
 }

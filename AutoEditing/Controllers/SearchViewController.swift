@@ -24,6 +24,12 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController: SearchViewDelegate {
     func onSearchEditingEnd(_ query: String) {
-        dataSource.fetchImages(query)
+        dataSource.fetchImages(query) { (data, error) in
+            guard let images = data else {
+                return
+            }
+            
+            print(images)
+        }
     }
 }
