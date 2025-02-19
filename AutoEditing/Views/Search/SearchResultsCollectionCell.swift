@@ -8,8 +8,19 @@
 import UIKit
 import SnapKit
 
+protocol SearchResultsCollectionCellDelegate: AnyObject {
+    func onToggleSelected(_ cell: SearchResultsCollectionCell, selected: Bool)
+}
+
 class SearchResultsCollectionCell: UICollectionViewCell {
     let imageView = UIImageView()
+    var checked = false {
+        didSet {
+            imageView.layer.borderColor = checked ? UIColor.blue.cgColor : nil
+            imageView.layer.borderWidth = checked ? 2 : 0
+        }
+    }
+    weak var delegate: SearchResultsCollectionCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,6 +46,15 @@ class SearchResultsCollectionCell: UICollectionViewCell {
         imageView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap))
+        tapGesture.cancelsTouchesInView = false
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func onTap() {
+        checked = !checked
+        delegate?.onToggleSelected(self, selected: checked)
     }
     
     public func set(image: UIImage) {

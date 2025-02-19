@@ -12,6 +12,7 @@ protocol SearchViewDelegate: AnyObject {
     func onSearchEditingEnd(_ query: String)
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    func onToggleSelected(_ cellIndexPath: IndexPath, selected: Bool)
 }
 
 class SearchView: UIView {
@@ -106,9 +107,24 @@ extension SearchView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return delegate?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
+        guard let cell = delegate?.collectionView(collectionView, cellForItemAt: indexPath) as? SearchResultsCollectionCell else {
+            return UICollectionViewCell()
+        }
+        
+        cell.delegate = self
+        
+        return cell
     }
-    
+}
+
+extension SearchView: SearchResultsCollectionCellDelegate {
+    func onToggleSelected(_ cell: SearchResultsCollectionCell, selected: Bool) {
+        guard let indexPath = collection?.indexPath(for: cell) else {
+            return
+        }
+        
+        delegate?.onToggleSelected(indexPath, selected: selected)
+    }
 }
 
 @available(iOS 17, *)

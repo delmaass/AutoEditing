@@ -12,6 +12,7 @@ class SearchViewController: UIViewController {
     private let dataSource: ImageDataSource = PixabayDataSource()
     
     private var images: [Image]?
+    private var selectedImages: [Image] = []
     
     override func loadView() {
         view = viewInstance
@@ -25,6 +26,24 @@ class SearchViewController: UIViewController {
 }
 
 extension SearchViewController: SearchViewDelegate {
+    func onToggleSelected(_ cellIndexPath: IndexPath, selected: Bool) {
+        guard let images = images else {
+            return
+        }
+        
+        let selectedImage = images[cellIndexPath.row]
+        
+        let selectedImagesIndex = selectedImages.firstIndex(where: { image in image.id == selectedImage.id} )
+        
+        if selectedImagesIndex == nil {
+            selectedImages.append(selectedImage)
+            print("Adding \(selectedImage.id)")
+        } else {
+            selectedImages.remove(at: selectedImagesIndex!)
+            print("Removing \(selectedImage.id)")
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchResultsCollectionCell", for: indexPath) as! SearchResultsCollectionCell
         
