@@ -68,4 +68,8 @@ class CarouselView: UIView {
         self.images = images
         fadeToNextImage()
     }
+    
+    public func clearImages() {
+        self.images = []
+    }
 }

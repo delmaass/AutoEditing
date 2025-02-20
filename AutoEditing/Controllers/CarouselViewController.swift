@@ -24,4 +24,10 @@ class CarouselViewController: UIViewController, CoordinatorDelegate {
         
         viewInstance.setImages(images)
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        viewInstance.clearImages()
+    }
 }
