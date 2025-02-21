@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class CarouselView: UIView {
-    private var images: [Image] = []
+    private var images: [UIImage] = []
     private let imageView = UIImageView()
     private var currentIndex = 0
     
@@ -44,27 +44,17 @@ class CarouselView: UIView {
         guard !images.isEmpty else { return }
         
         let nextImage = images[currentIndex]
-        
-        Networker.shared.download(URL(string: nextImage.url)!) { (data, error) in
-            guard let data = data else {
-                return
-            }
-            
-            let image = UIImage(data: data)!
-            
-            DispatchQueue.main.async {
-                UIView.transition(with: self.imageView, duration: 1.0, options: .transitionCrossDissolve, animations: {
-                    self.imageView.image = image
-                }) { _ in
-                    self.startImageTransition()
-                }
-            }
+
+        UIView.transition(with: self.imageView, duration: 1.0, options: .transitionCrossDissolve, animations: {
+            self.imageView.image = nextImage
+        }) { _ in
+            self.startImageTransition()
         }
         
         currentIndex = (currentIndex + 1) % images.count
     }
     
-    public func setImages(_ images: [Image]) {
+    public func setImages(_ images: [UIImage]) {
         self.images = images
         fadeToNextImage()
     }
