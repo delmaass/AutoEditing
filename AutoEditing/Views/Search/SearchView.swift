@@ -14,6 +14,7 @@ protocol SearchViewDelegate: AnyObject {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     func onToggleSelected(_ image: Image, selected: Bool)
     func onContinue()
+    func collectionView(willDisplayItemAt indexPath: IndexPath, query: String)
 }
 
 class SearchView: UIView {
@@ -133,6 +134,14 @@ extension SearchView: UICollectionViewDataSource {
         cell.delegate = self
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let query = searchBar.text else {
+            return
+        }
+        
+        delegate?.collectionView(willDisplayItemAt: indexPath, query: query)
     }
 }
 

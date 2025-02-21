@@ -7,6 +7,8 @@
 
 import UIKit
 
+let NUMBER_ITEMS_PER_PAGE = 20
+
 class SearchViewController: UIViewController, CoordinatorDelegate {
     private let viewInstance = SearchView()
     private let dataSource: ImageDataSource = PixabayDataSource()
@@ -67,7 +69,7 @@ extension SearchViewController: SearchViewDelegate {
         self.images = []
         self.viewInstance.reloadCollectionData()
         
-        dataSource.fetchImages(query) { (data, error) in
+        dataSource.fetchImages(query, limit: NUMBER_ITEMS_PER_PAGE, offset: 0) { (data, error) in
             guard let images = data else {
                 return
             }
@@ -79,5 +81,20 @@ extension SearchViewController: SearchViewDelegate {
     
     func onContinue() {
         coordinator?.navigateToCarousel(images: selectedImages)
+    }
+    
+    func collectionView(willDisplayItemAt indexPath: IndexPath, query: String) {
+        guard images.count > 0 && indexPath.row == images.count - 1 else {
+            return
+        }
+        
+        dataSource.fetchImages(query, limit: NUMBER_ITEMS_PER_PAGE, offset: images.count) { (data, error) in
+            guard let images = data else {
+                return
+            }
+            
+            self.images.append(contentsOf: images)
+            self.viewInstance.reloadCollectionData()
+        }
     }
 }
