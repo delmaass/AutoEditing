@@ -33,6 +33,12 @@ class SearchResultsCollectionCell: UICollectionViewCell {
         setup()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+        checked = false
+    }
+    
     private func setup() {
         backgroundColor = .lightGray
         
@@ -62,8 +68,15 @@ class SearchResultsCollectionCell: UICollectionViewCell {
         delegate?.onToggleSelected(id, selected: checked)
     }
     
-    public func configure(id: String, image: UIImage, selected: Bool) {
+    public func configure(id: String) {
         self.id = id
+    }
+    
+    public func set(id: String, image: UIImage, selected: Bool) {
+        guard self.id == id else {
+            return
+        }
+        
         self.imageView.image = image
         self.checked = selected
     }

@@ -71,13 +71,15 @@ extension SearchViewController: SearchViewDelegate {
         }
         
         if let image = image {
+            cell.configure(id: image.id)
+            
             Networker.shared.download(URL(string: image.url)!) { (data, error) in
                 guard let data = data else {
                     return
                 }
                 
                 DispatchQueue.main.async {
-                    cell.configure(id: image.id, image: UIImage(data: data)!, selected: selected)
+                    cell.set(id: image.id, image: UIImage(data: data)!, selected: selected)
                 }
             }
         }
