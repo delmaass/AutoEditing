@@ -10,20 +10,22 @@ import UIKit
 let NUMBER_ITEMS_PER_PAGE = 20
 
 class SearchViewController: UIViewController, CoordinatorDelegate {
-    private let viewInstance = SearchView()
+    private let viewInstance: SearchView
     private let dataSource: ImageDataSource
     
     var images: [Image] = []
     var selectedImages: [Image] = []
     weak var coordinator: Coordinator?
     
-    init(dataSource: ImageDataSource? = nil) {
+    init(dataSource: ImageDataSource? = nil, viewInstance: SearchView? = nil) {
         self.dataSource = dataSource ?? PixabayDataSource()
+        self.viewInstance = viewInstance ?? SearchView()
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         self.dataSource = PixabayDataSource()
+        self.viewInstance = SearchView()
         super.init(coder: coder)
     }
     
@@ -117,11 +119,11 @@ extension SearchViewController: SearchViewDelegate {
         }
         
         dataSource.fetchImages(query, limit: NUMBER_ITEMS_PER_PAGE, offset: images.count) { (data, error) in
-            guard let images = data else {
+            guard let newImages = data, newImages.count > 0 else {
                 return
             }
             
-            self.images.append(contentsOf: images)
+            self.images.append(contentsOf: newImages)
             self.viewInstance.reloadCollectionData()
         }
     }
