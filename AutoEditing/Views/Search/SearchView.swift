@@ -12,7 +12,7 @@ protocol SearchViewDelegate: AnyObject {
     func onSearchEditingEnd(_ query: String)
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
-    func onToggleSelected(_ image: Image, selected: Bool)
+    func onToggleSelected(_ id: String, selected: Bool)
     func onContinue()
     func collectionView(willDisplayItemAt indexPath: IndexPath, query: String)
 }
@@ -146,8 +146,8 @@ extension SearchView: UICollectionViewDataSource {
 }
 
 extension SearchView: SearchResultsCollectionCellDelegate {
-    func onToggleSelected(_ image: Image, selected: Bool) {
-        delegate?.onToggleSelected(image, selected: selected)
+    func onToggleSelected(_ id: String, selected: Bool) {
+        delegate?.onToggleSelected(id, selected: selected)
     }
 }
 

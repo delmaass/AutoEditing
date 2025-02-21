@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 
 protocol SearchResultsCollectionCellDelegate: AnyObject {
-    func onToggleSelected(_ image: Image, selected: Bool)
+    func onToggleSelected(_ id: String, selected: Bool)
 }
 
 class SearchResultsCollectionCell: UICollectionViewCell {
-    var image: Image?
+    private var id: String?
     let imageView = UIImageView()
     var checked = false {
         didSet {
@@ -54,30 +54,17 @@ class SearchResultsCollectionCell: UICollectionViewCell {
     }
     
     @objc private func onTap() {
-        guard let image = image else {
+        guard let id = id else {
             return
         }
         
         checked = !checked
-        delegate?.onToggleSelected(image, selected: checked)
+        delegate?.onToggleSelected(id, selected: checked)
     }
     
-    public func set(image: Image, selected: Bool) {
-        self.imageView.image = nil
-        self.layoutIfNeeded()
-        
-        self.image = image
+    public func configure(id: String, image: UIImage, selected: Bool) {
+        self.id = id
+        self.imageView.image = image
         self.checked = selected
-        
-        Networker.shared.download(URL(string: image.url)!) { (data, error) in
-            guard let data = data else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.imageView.image = UIImage(data: data)
-                self.layoutIfNeeded()
-            }
-        }
     }
 }

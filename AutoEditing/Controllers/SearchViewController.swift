@@ -39,10 +39,16 @@ class SearchViewController: UIViewController, CoordinatorDelegate {
 }
 
 extension SearchViewController: SearchViewDelegate {
-    func onToggleSelected(_ selectedImage: Image, selected: Bool) {
-        let selectedImagesIndex = selectedImages.firstIndex(where: { image in image.id == selectedImage.id} )
+    func onToggleSelected(_ id: String, selected: Bool) {
+        let selectedImagesIndex = selectedImages.firstIndex(where: { image in image.id == id} )
         
         if selectedImagesIndex == nil {
+            let selectedImage = images.first(where: { image in image.id == id })
+            
+            guard let selectedImage = selectedImage else {
+                return
+            }
+            
             selectedImages.append(selectedImage)
         } else {
             selectedImages.remove(at: selectedImagesIndex!)
@@ -65,7 +71,15 @@ extension SearchViewController: SearchViewDelegate {
         }
         
         if let image = image {
-            cell.set(image: image, selected: selected)
+            Networker.shared.download(URL(string: image.url)!) { (data, error) in
+                guard let data = data else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    cell.configure(id: image.id, image: UIImage(data: data)!, selected: selected)
+                }
+            }
         }
         
         return cell
