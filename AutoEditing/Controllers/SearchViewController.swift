@@ -43,14 +43,16 @@ extension SearchViewController: SearchViewDelegate {
         let selectedImagesIndex = selectedImages.firstIndex(where: { image in image.id == id} )
         
         if selectedImagesIndex == nil {
-            let selectedImage = images.first(where: { image in image.id == id })
+            let imagesIndex = images.firstIndex(where: { image in image.id == id })
             
-            guard let selectedImage = selectedImage else {
+            guard let imagesIndex = imagesIndex else {
                 return
             }
             
-            selectedImages.append(selectedImage)
+            selectedImages.append(images[imagesIndex])
+            images.remove(at: imagesIndex)
         } else {
+            images.append(selectedImages[selectedImagesIndex!])
             selectedImages.remove(at: selectedImagesIndex!)
         }
         

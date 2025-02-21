@@ -33,15 +33,20 @@ class SearchViewControllerTests: XCTestCase {
         
         XCTAssertEqual(vc.selectedImages.count, 1)
         XCTAssertEqual(vc.selectedImages.first?.id, "1")
+        XCTAssertEqual(vc.images.count, 1)
+        XCTAssertEqual(vc.images.first?.id, "2")
         
         vc.onToggleSelected(image2.id, selected: true)
         
         XCTAssertEqual(vc.selectedImages.count, 2)
+        XCTAssertEqual(vc.images.count, 0)
         
         vc.onToggleSelected(image1.id, selected: false)
         
         XCTAssertEqual(vc.selectedImages.count, 1)
         XCTAssertEqual(vc.selectedImages.first?.id, "2")
+        XCTAssertEqual(vc.images.count, 1)
+        XCTAssertEqual(vc.images.first?.id, "1")
     }
     
     func testSearchFetch() {
