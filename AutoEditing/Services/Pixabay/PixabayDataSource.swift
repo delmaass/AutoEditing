@@ -13,9 +13,8 @@ class PixabayDataSource: ImageDataSource {
             fatalError("PIXABAY_API_KEY environment variable needs to be set")
         }
         
-        let q = query.replacingOccurrences(of: " ", with: "+")
-        
-        let url = URL(string: "https://pixabay.com/api/?image_type=photo&q=\(q)&key=\(apiKey)")!
+        var url = URL(string: "https://pixabay.com/api/?image_type=photo&key=\(apiKey)")!
+        url.appendQueryItem(name: "q", value: query)
         
         Networker.shared.get(url) { (data: Data?, error: Error?) in
             if let error = error {
