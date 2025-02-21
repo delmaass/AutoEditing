@@ -17,7 +17,7 @@ enum NetworkError: Error {
 class Networker {
     static let shared = Networker()
     private let session: URLSession
-    private var cachedDownloads: [String: Data] = [:]
+    private var cachedDownloads = NSCache<NSString, NSData>()
     
     init() {
         let config = URLSessionConfiguration.default
@@ -61,15 +61,16 @@ class Networker {
     }
     
     func download(_ url: URL, completion: @escaping (Data?, Error?) -> (Void)) {
-        if let cachedDownload = cachedDownloads[url.absoluteString] {
-            completion(cachedDownload, nil)
+        let urlKey = url.absoluteString as NSString
+        if let cachedDownloadData = cachedDownloads.object(forKey: urlKey) {
+            completion(Data(referencing: cachedDownloadData), nil)
             return
         }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
-        let task = session.downloadTask(with: request) { localUrl, response, error in
+        let task = session.downloadTask(with: request) { [weak self] localUrl, response, error in
             if let error = error {
                 print("Error: \(error)")
                 completion(nil, error)
@@ -96,7 +97,7 @@ class Networker {
             
             do {
                 let data = try Data(contentsOf: localUrl)
-                self.cachedDownloads[url.absoluteString] = data
+                self?.cachedDownloads.setObject(data as NSData, forKey: urlKey)
                 completion(data, nil)
             } catch {
                 completion(nil, error)
