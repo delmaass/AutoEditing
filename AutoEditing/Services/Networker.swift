@@ -62,7 +62,6 @@ class Networker {
     
     func download(_ url: URL, completion: @escaping (Data?, Error?) -> (Void)) {
         if let cachedDownload = cachedDownloads[url.absoluteString] {
-            print("Using cached download: \(url.absoluteString)")
             completion(cachedDownload, nil)
             return
         }

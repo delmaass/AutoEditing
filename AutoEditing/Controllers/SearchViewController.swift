@@ -11,11 +11,21 @@ let NUMBER_ITEMS_PER_PAGE = 20
 
 class SearchViewController: UIViewController, CoordinatorDelegate {
     private let viewInstance = SearchView()
-    private let dataSource: ImageDataSource = PixabayDataSource()
-    private var images: [Image] = []
-    private var selectedImages: [Image] = []
+    private let dataSource: ImageDataSource
     
+    var images: [Image] = []
+    var selectedImages: [Image] = []
     weak var coordinator: Coordinator?
+    
+    init(dataSource: ImageDataSource? = nil) {
+        self.dataSource = dataSource ?? PixabayDataSource()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        self.dataSource = PixabayDataSource()
+        super.init(coder: coder)
+    }
     
     override func loadView() {
         view = viewInstance
